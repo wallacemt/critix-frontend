@@ -98,5 +98,9 @@ jobs:
         with:
           context: .
           push: true
+          # Set NEXT_PUBLIC_UMAMI_WEBSITE_ID as a public Actions variable after creating the Critix site in Umami.
+          build-args: |
+            NEXT_PUBLIC_UMAMI_WEBSITE_ID=${{ vars.NEXT_PUBLIC_UMAMI_WEBSITE_ID }}
+            NEXT_PUBLIC_UMAMI_SCRIPT_URL=https://analytics.wallacedev.com.br/script.js
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { AuthProvider } from "@/context/authContext";
 import { Toaster } from "sonner";
+import Script from "next/script";
 import TopLoadingBar from "@/components/ui/top-loading-bar";
 import BackendStatusGate from "@/components/startup/BackendStatusGate";
 
@@ -139,6 +140,17 @@ export default function RootLayout({
         <meta httpEquiv="Accept-CH" content="DPR, Width, Viewport-Width" />
       </head>
       <body className="antialiased">
+        {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
+          <Script
+            strategy="afterInteractive"
+            src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL || "https://analytics.wallacedev.com.br/script.js"}
+            data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+            data-domains="critix.app,critix.wallacedev.com.br"
+            data-do-not-track="true"
+            data-exclude-search="true"
+            data-exclude-hash="true"
+          />
+        )}
         <TopLoadingBar />
         <BackendStatusGate>
           <AuthProvider>{children}</AuthProvider>
